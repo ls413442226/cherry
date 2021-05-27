@@ -60,7 +60,6 @@ public class MD5Util {
            byte[] salt = new byte[SALT_LENGTH];
            //将随机数放入盐变量中
            random.nextBytes(salt);
-
            //声明消息摘要对象
            MessageDigest md = null;
            //创建消息摘要
@@ -71,7 +70,6 @@ public class MD5Util {
            md.update(password.getBytes("UTF-8"));
            //获得消息摘要的字节数组
            byte[] digest = md.digest();
-
            //因为要在口令的字节数组中存放盐，所以加上盐的字节长度
            pwd = new byte[digest.length + SALT_LENGTH];
            //将盐的字节拷贝到生成的加密口令字节数组的前12个字节，以便在验证口令时取出盐

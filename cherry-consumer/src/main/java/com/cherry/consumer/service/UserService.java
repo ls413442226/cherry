@@ -154,7 +154,6 @@ public class UserService {
         userDb.setMobile(phone);
         //生成加密MD5
         String encryptedPwd = MD5Util.getEncryptedPwd(userVo.getPassword());
-        System.out.println(encryptedPwd);
         userDb.setPassword(encryptedPwd);
         userDb.setCreated(new Date());
         userApi.saveUser(userDb);
