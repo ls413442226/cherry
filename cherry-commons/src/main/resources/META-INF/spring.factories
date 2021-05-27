@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.cherry.commons.config.CherryAutoConfiguration
+com.cherry.commons.configuration.CherryAutoConfiguration

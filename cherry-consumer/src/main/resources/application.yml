@@ -28,3 +28,10 @@ dubbo:
   registry:
     address: zookeeper://127.0.0.1:2181
 #配置短信平台信息
+
+# 配置swagger
+swagger:
+  basePackage: com.cherry.consumer.controller
+  title: CherryAPI
+  description: 学习使我们收获满满.
+  version: V1.0

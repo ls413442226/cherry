@@ -23,10 +23,19 @@ public class ErrorResult {
     }
 
     public static ErrorResult loginError() {
-        return ErrorResult.builder().errCode("02").errMessage("验证码失效").build();
+        return ErrorResult.builder().errCode("02").errMessage("验证失败或验证码过期").build();
     }
 
     public static ErrorResult faceError() {
         return ErrorResult.builder().errCode("03").errMessage("图片非人像，请重新上传!").build();
+    }
+    public static ErrorResult phoneError() {
+        return ErrorResult.builder().errCode("03").errMessage("手机号或用户名为空,请重新填写!").build();
+    }
+    public static ErrorResult success(){
+        return ErrorResult.builder().errCode("00").errMessage("注册成功").build();
+    }
+    public static ErrorResult codeRrror(){
+        return ErrorResult.builder().errCode("01").errMessage("验证码错误").build();
     }
 }

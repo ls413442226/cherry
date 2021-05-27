@@ -3,8 +3,11 @@ package com.cherry.consumer.service;
 import com.cherry.api.UserApi;
 import com.cherry.commons.tmplates.SmsTemplate;
 import com.cherry.consumer.utils.RandomUtil;
-import com.cherry.consumer.utils.VerifyCodeUtil;
+import com.cherry.consumer.utils.UuidUtils;
+import com.cherry.domain.db.User;
 import com.cherry.domain.pojo.VerifyCode;
+import com.cherry.domain.vo.ErrorResult;
+import com.cherry.domain.vo.UserVo;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,9 +22,11 @@ import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -35,7 +40,7 @@ public class UserService {
     @Autowired
     private RedisTemplate redisTemplate;
 
-    private String key = "CODE_KEY_";
+    private String redisKey = "CODE_KEY_";
 
     //图片验证码生成
     public void verifyCode(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -102,14 +107,66 @@ public class UserService {
     }
 
     //发送短信验证码
-    public void sendCode(String mobile) {
+    public ResponseEntity sendCode(String mobile) {
+        //生成6位手机验证码
         String sixBitRandom = RandomUtil.getSixBitRandom();
+        //存入redis手机验证码,并设置5分钟失效时间
+        redisTemplate.opsForValue().set(redisKey+mobile,sixBitRandom,5,TimeUnit.MINUTES);
         System.out.println(sixBitRandom);
-        redisTemplate.opsForValue().set(key+mobile,sixBitRandom);
+        return ResponseEntity.ok().body("验证码发送成功");
     }
 
     //保存用户
-    public void saveUser(Map map) {
-        
+    public ResponseEntity saveUser(Map map) throws Exception {
+        UserVo userVo = getObject(map, UserVo.class);
+        User userDb = new User();
+
+        String phone = userVo.getMobile();
+        String code = userVo.getCode();
+        String username = userVo.getUsername();
+
+        //用户名+手机非空判断
+        if (phone == null || username == null){
+            return ResponseEntity.status(500).body(ErrorResult.phoneError());
+        }
+        String value = (String) redisTemplate.opsForValue().get(redisKey + phone);
+        //验证码非空判断
+        if (value == null || !value.equals(code)){
+            return ResponseEntity.status(500).body(ErrorResult.codeRrror());
+        }
+        //判断系统内是否有重复的用户名或者手机号
+        boolean userIsNull = userApi.queryUserIsNull(username);
+        if (!userIsNull){
+            ResponseEntity.status(500).body("用户名重复");
+        }
+        boolean phoneIsNull = userApi.queryPhoneIsNull(phone);
+        if (!phoneIsNull){
+            ResponseEntity.status(500).body("手机号重复");
+        }
+
+        //删除Redis中的code
+        redisTemplate.delete(redisKey+phone);
+
+        userDb.setId(UuidUtils.getId());
+        userDb.setUsername(username);
+        userDb.setMobile(phone);
+        userDb.setPassword(userVo.getPassword());
+        userDb.setCreated(new Date());
+        userApi.saveUser(userDb);
+        return ResponseEntity.ok().body(ErrorResult.success());
+    }
+    //将集合转化为对象的具体实现
+    private static <T>T getObject(Map<String,Object> map, Class<T> c) throws Exception {
+        T t = c.newInstance();//创建一个一个类型为T对象t
+        //1.拆开map
+        Set<Map.Entry<String, Object>> entries = map.entrySet();
+        for (Map.Entry<String, Object> entry : entries) {//获取集合里面的元素
+            String key = entry.getKey();//得到key的值（类T的的成员属性）
+            //2.将map中的值存入T这个类的对象属性中
+            Field f = c.getDeclaredField(key);//获取类的所有字段
+            f.setAccessible(true);//简单的理解：设置访问权限
+            f.set(t,entry.getValue());//给T对象赋值
+        }
+        return t;
     }
 }
