@@ -2,6 +2,7 @@ package com.cherry.consumer.service;
 
 import com.cherry.api.UserApi;
 import com.cherry.commons.tmplates.SmsTemplate;
+import com.cherry.consumer.utils.MD5Util;
 import com.cherry.consumer.utils.RandomUtil;
 import com.cherry.consumer.utils.UuidUtils;
 import com.cherry.domain.db.User;
@@ -147,10 +148,14 @@ public class UserService {
         //删除Redis中的code
         redisTemplate.delete(redisKey+phone);
 
+
         userDb.setId(UuidUtils.getId());
         userDb.setUsername(username);
         userDb.setMobile(phone);
-        userDb.setPassword(userVo.getPassword());
+        //生成加密MD5
+        String encryptedPwd = MD5Util.getEncryptedPwd(userVo.getPassword());
+        System.out.println(encryptedPwd);
+        userDb.setPassword(encryptedPwd);
         userDb.setCreated(new Date());
         userApi.saveUser(userDb);
         return ResponseEntity.ok().body(ErrorResult.success());

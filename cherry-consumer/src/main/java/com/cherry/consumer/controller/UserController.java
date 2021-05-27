@@ -16,7 +16,7 @@ import java.util.Map;
 
 @Api(value="V1")
 @RestController
-@RequestMapping("/Api")
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
