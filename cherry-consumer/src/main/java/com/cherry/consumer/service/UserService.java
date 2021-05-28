@@ -42,6 +42,9 @@ public class UserService {
 
     private String redisKey = "CODE_KEY_";
 
+    private boolean wrongPassword = false;
+
+
     //图片验证码生成
     public void verifyCode(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         VerifyCode vc = new VerifyCode();
@@ -165,12 +168,13 @@ public class UserService {
 
         String queryPassword = userApi.queryUser(username);
 
-        if (!password.equals(queryPassword)){
-            System.out.println("验证失败");
-            return null;
+        wrongPassword = MD5Util.validPassword(password, queryPassword);
+
+        if (!wrongPassword){
+            return ResponseEntity.ok().body("密码错误");
         }
-        System.out.println("验证成功");
-        return ResponseEntity.ok("验证成功");
+
+        return ResponseEntity.ok("密码正确,验证成功");
     }
     //将集合转化为对象的具体实现
     private static <T>T getObject(Map<String,Object> map, Class<T> c) throws Exception {
