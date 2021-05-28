@@ -5,7 +5,10 @@ import com.cherry.api.UserApi;
 import com.cherry.domain.db.User;
 import com.cherry.dubbo.mapper.UserMapper;
 import org.apache.dubbo.config.annotation.Service;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 
 @Service
@@ -13,8 +16,7 @@ public class UserApiImpl implements UserApi {
 
     @Autowired
     private UserMapper userMapper;
-
-    Boolean isNull = false;
+    
 
     @Override
     public void saveUser(User userDb) {
@@ -22,25 +24,32 @@ public class UserApiImpl implements UserApi {
     }
 
 
+
     @Override
-    public boolean queryUserIsNull(String username) {
-        QueryWrapper<User> queryWrapper = new QueryWrapper();
-        QueryWrapper<User> isNullUser = queryWrapper.eq("username", username);
-        if (isNullUser == null){
-            isNull = true;
-            return isNull;
-        }
-        return isNull;
+    public String queryUser(String username) {
+        String s = userMapper.queryUser(username);
+        return s;
     }
 
     @Override
-    public boolean queryPhoneIsNull(String phone) {
-        QueryWrapper<User> queryWrapper = new QueryWrapper();
-        QueryWrapper<User> isNullPhone = queryWrapper.eq("phone", phone);
-        if (isNullPhone == null){
-            isNull = true;
-            return isNull;
-        }
-        return isNull;
+    public int queryUserIsNull(String username) {
+        return userMapper.queryUserisNull(username);
+    }
+
+    @Override
+    public int queryPhoneIsNull(String phone) {
+        return userMapper.queryPhoneisNull(phone);
+    }
+
+    @Override
+    public User queryUserNull(String username) {
+        User user = userMapper.querIsNull(username);
+        return user;
+
+    }
+
+    @Override
+    public void login(User user) {
+
     }
 }

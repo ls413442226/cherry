@@ -18,7 +18,9 @@ dubbo:
   scan:
     base-packages: com.cherry.dubbo.impl
 mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml
   global-config:
     db-config:
       table-prefix: tb_   # 表名前缀
-      id-type: auto   # id策略为自增长
+#      id-type: auto   # id策略为自增长
+

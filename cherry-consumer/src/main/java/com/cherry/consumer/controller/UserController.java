@@ -46,4 +46,10 @@ public class UserController {
         return userService.saveUser(map);
     }
 
+    //登录
+    @ApiOperation(value = "登录")
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody Map map) throws Exception {
+        return userService.login(map);
+    }
 }

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -24,10 +25,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.Date;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -136,19 +135,17 @@ public class UserService {
             return ResponseEntity.status(500).body(ErrorResult.codeRrror());
         }
         //判断系统内是否有重复的用户名或者手机号
-        boolean userIsNull = userApi.queryUserIsNull(username);
-        if (!userIsNull){
-            ResponseEntity.status(500).body("用户名重复");
+        int isUserNull = userApi.queryUserIsNull(username);
+        if (isUserNull >= 1){
+            return ResponseEntity.status(500).body("你输入的用户已经存在");
         }
-        boolean phoneIsNull = userApi.queryPhoneIsNull(phone);
-        if (!phoneIsNull){
-            ResponseEntity.status(500).body("手机号重复");
+        int isPhoneNull = userApi.queryPhoneIsNull(phone);
+        if (isPhoneNull >= 1){
+            return ResponseEntity.status(500).body("你输入的手机号已经存在");
         }
 
         //删除Redis中的code
         redisTemplate.delete(redisKey+phone);
-
-
         userDb.setId(UuidUtils.getId());
         userDb.setUsername(username);
         userDb.setMobile(phone);
@@ -158,6 +155,22 @@ public class UserService {
         userDb.setCreated(new Date());
         userApi.saveUser(userDb);
         return ResponseEntity.ok().body(ErrorResult.success());
+    }
+
+    //用户登录
+    public ResponseEntity login(Map map) throws Exception {
+        UserVo userVo = getObject(map,UserVo.class);
+        String username = userVo.getUsername();
+        String password = userVo.getPassword();
+
+        String queryPassword = userApi.queryUser(username);
+
+        if (!password.equals(queryPassword)){
+            System.out.println("验证失败");
+            return null;
+        }
+        System.out.println("验证成功");
+        return ResponseEntity.ok("验证成功");
     }
     //将集合转化为对象的具体实现
     private static <T>T getObject(Map<String,Object> map, Class<T> c) throws Exception {
