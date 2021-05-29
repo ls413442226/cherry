@@ -39,8 +39,8 @@ public class UserController {
     }
     @ApiOperation(value = "图形验证码后台验证")
     @GetMapping("Verification")
-    public ResponseEntity backgroundVerification(@RequestBody String code){
-        return userService.backgroundVerification(code);
+    public ResponseEntity backgroundVerification(@RequestBody Map map){
+        return userService.backgroundVerification(map);
     }
 
     //校验

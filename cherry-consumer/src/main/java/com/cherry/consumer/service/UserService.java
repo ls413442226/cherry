@@ -102,10 +102,11 @@ public class UserService {
         }
 
         // 将四位数字的验证码保存到Session中。
-        HttpSession session = req.getSession();
+//        HttpSession session = req.getSession();
         System.out.println(randomCode);
+        String code = String.valueOf(randomCode);
 //        session.setAttribute("code", randomCode.toString());
-        redisTemplate.opsForValue().set(randomCode,randomCode,1,TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(code,code,60,TimeUnit.MINUTES);
 
         //禁止图像缓存。
         resp.setHeader("Pragma", "no-cache");
@@ -117,6 +118,18 @@ public class UserService {
         ImageIO.write(buffImg, "jpeg", sos);
         sos.close();
         return ResponseEntity.ok().body("图片更新成功");
+    }
+
+    //图形验证码 后台验证
+    public ResponseEntity backgroundVerification(Map map) {
+        Object code = map.get("code");
+        System.out.println(code);
+        String value = (String) redisTemplate.opsForValue().get(code);
+        if (value == null || !value.equals(map.get("code"))){
+            return ResponseEntity.status(500).body(ErrorResult.codeRrror());
+        }
+        redisTemplate.delete(map.get("code"));
+        return ResponseEntity.ok().body("验证成功");
     }
 
     //发送短信验证码
@@ -143,6 +156,7 @@ public class UserService {
             return ResponseEntity.status(500).body(ErrorResult.phoneError());
         }
         String value = (String) redisTemplate.opsForValue().get(redisKey + phone);
+        System.out.println(value);
         //验证码非空判断
         if (value == null || !value.equals(code)){
             return ResponseEntity.status(500).body(ErrorResult.codeRrror());
@@ -208,13 +222,5 @@ public class UserService {
             f.set(t,entry.getValue());//给T对象赋值
         }
         return t;
-    }
-
-    public ResponseEntity backgroundVerification(String code) {
-        String value = (String) redisTemplate.opsForValue().get(code);
-        if (value == null || !value.equals(code)){
-            return ResponseEntity.status(500).body(ErrorResult.codeRrror());
-        }
-        return ResponseEntity.ok().body("验证成功");
     }
 }

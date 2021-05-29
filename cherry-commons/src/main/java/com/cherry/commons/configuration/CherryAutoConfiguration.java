@@ -10,6 +10,10 @@ import com.cherry.commons.tmplates.SwaggerTemplate;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
@@ -21,12 +25,23 @@ public class CherryAutoConfiguration {
     public SmsTemplate smsTemplate(SmsProperties smsProperties){
         return new SmsTemplate(smsProperties);
     }
+
     @Bean
     public SwaggerTemplate swaggerTemplate(SwaggerProperties swaggerProperties){
         return new SwaggerTemplate(swaggerProperties);
     }
+
     @Bean
     public JwtUtilTemplate jwtUtilTemplate(JwtUtilProperties jwtUtilProperties){
         return new JwtUtilTemplate(jwtUtilProperties);
+    }
+
+    @Bean
+    public RedisTemplate<String, Object> empRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
+        template.setConnectionFactory(redisConnectionFactory);
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());
+        return template;
     }
 }
