@@ -37,6 +37,11 @@ public class UserController {
     public ResponseEntity  verifyCode(HttpServletRequest req, HttpServletResponse resp) throws IOException {
        return userService.verifyCode(req,resp);
     }
+    @ApiOperation(value = "图形验证码后台验证")
+    @GetMapping("Verification")
+    public ResponseEntity backgroundVerification(@RequestBody String code){
+        return userService.backgroundVerification(code);
+    }
 
     //校验
     @ApiOperation(value="保存账户信息")

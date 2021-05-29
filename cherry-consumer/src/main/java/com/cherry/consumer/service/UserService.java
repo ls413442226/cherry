@@ -104,14 +104,9 @@ public class UserService {
         // 将四位数字的验证码保存到Session中。
         HttpSession session = req.getSession();
         System.out.println(randomCode);
-        session.setAttribute("code", randomCode.toString());
+//        session.setAttribute("code", randomCode.toString());
+        redisTemplate.opsForValue().set(randomCode,randomCode,1,TimeUnit.MINUTES);
 
-        String code = String.valueOf(randomCode);
-        System.out.println(code);
-
-        Cookie cookie = new Cookie("code",code);
-        cookie.setMaxAge(Integer.MAX_VALUE);
-        resp.addCookie(cookie);
         //禁止图像缓存。
         resp.setHeader("Pragma", "no-cache");
         resp.setHeader("Cache-Control", "no-cache");
@@ -213,5 +208,13 @@ public class UserService {
             f.set(t,entry.getValue());//给T对象赋值
         }
         return t;
+    }
+
+    public ResponseEntity backgroundVerification(String code) {
+        String value = (String) redisTemplate.opsForValue().get(code);
+        if (value == null || !value.equals(code)){
+            return ResponseEntity.status(500).body(ErrorResult.codeRrror());
+        }
+        return ResponseEntity.ok().body("验证成功");
     }
 }
