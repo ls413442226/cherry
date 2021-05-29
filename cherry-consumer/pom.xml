@@ -41,12 +41,12 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
         </dependency>
-        <!--jwt依赖-->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
-        </dependency>
+        <!--&lt;!&ndash;jwt依赖&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>io.jsonwebtoken</groupId>-->
+            <!--<artifactId>jjwt</artifactId>-->
+            <!--<version>0.9.1</version>-->
+        <!--</dependency>-->
         <!--fastdfs文件存储
             <dependency>
                 <groupId>com.github.tobato</groupId>

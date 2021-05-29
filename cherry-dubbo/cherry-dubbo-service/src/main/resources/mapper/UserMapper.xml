@@ -3,19 +3,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cherry.dubbo.mapper.UserMapper">
 
-    <select id="queryUser" resultType="String">
-        select password from tb_user where username = #{username}
-    </select>
     <select id="queryUserisNull" resultType="java.lang.Integer">
         select count(*) from tb_user where username = #{username}
     </select>
     <select id="queryPhoneisNull" resultType="java.lang.Integer">
         select count(*) from tb_user where mobile = #{mobile}
     </select>
-    <select id="querIsNull" resultType="com.cherry.domain.db.User">
+
+    <select id="queryUser" resultType="com.cherry.domain.db.User">
         select * from tb_user where username = #{username}
     </select>
-
 
 
 

@@ -35,8 +35,7 @@ public class UserController {
     @ApiOperation(value="验证码图片")
     @GetMapping("/Captcha")
     public ResponseEntity  verifyCode(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        userService.verifyCode(req,resp);
-        return ResponseEntity.ok(null);
+       return userService.verifyCode(req,resp);
     }
 
     //校验

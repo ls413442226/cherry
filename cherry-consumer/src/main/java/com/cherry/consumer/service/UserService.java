@@ -1,6 +1,7 @@
 package com.cherry.consumer.service;
 
 import com.cherry.api.UserApi;
+import com.cherry.commons.tmplates.JwtUtilTemplate;
 import com.cherry.commons.tmplates.SmsTemplate;
 import com.cherry.consumer.utils.MD5Util;
 import com.cherry.consumer.utils.RandomUtil;
@@ -9,15 +10,16 @@ import com.cherry.domain.db.User;
 import com.cherry.domain.pojo.VerifyCode;
 import com.cherry.domain.vo.ErrorResult;
 import com.cherry.domain.vo.UserVo;
+import io.jsonwebtoken.Claims;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,7 +28,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -40,13 +41,18 @@ public class UserService {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private JwtUtilTemplate jwtUtilTemplate;
+
+    private String user_Normal = "普通用户";
+
     private String redisKey = "CODE_KEY_";
 
     private boolean wrongPassword = false;
 
 
     //图片验证码生成
-    public void verifyCode(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public ResponseEntity verifyCode(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         VerifyCode vc = new VerifyCode();
 
         // 定义图像buffer
@@ -94,11 +100,19 @@ public class UserService {
             // 将产生的四个随机数组合在一起。
             randomCode.append(code);
         }
+
         // 将四位数字的验证码保存到Session中。
         HttpSession session = req.getSession();
         System.out.println(randomCode);
         session.setAttribute("code", randomCode.toString());
-        // 禁止图像缓存。
+
+        String code = String.valueOf(randomCode);
+        System.out.println(code);
+
+        Cookie cookie = new Cookie("code",code);
+        cookie.setMaxAge(Integer.MAX_VALUE);
+        resp.addCookie(cookie);
+        //禁止图像缓存。
         resp.setHeader("Pragma", "no-cache");
         resp.setHeader("Cache-Control", "no-cache");
         resp.setDateHeader("Expires", 0);
@@ -107,6 +121,7 @@ public class UserService {
         ServletOutputStream sos = resp.getOutputStream();
         ImageIO.write(buffImg, "jpeg", sos);
         sos.close();
+        return ResponseEntity.ok().body("图片更新成功");
     }
 
     //发送短信验证码
@@ -166,13 +181,22 @@ public class UserService {
         String username = userVo.getUsername();
         String password = userVo.getPassword();
 
-        String queryPassword = userApi.queryUser(username);
+        User user = userApi.queryUser(username);
 
-        wrongPassword = MD5Util.validPassword(password, queryPassword);
+        wrongPassword = MD5Util.validPassword(password, user.getPassword());
 
         if (!wrongPassword){
             return ResponseEntity.ok().body("密码错误");
         }
+
+        //生成token
+        String jwt = jwtUtilTemplate.createJWT(user.getUsername(), user.getMobile(), user_Normal);
+        System.out.println(jwt);
+        Claims claims = jwtUtilTemplate.parseJWT(jwt);
+        System.out.println(claims);
+        System.out.println("获取id: "+claims.getId());
+        System.out.println("获取头信息: "+claims.getSubject());
+        System.out.println("获取过期时间: "+claims.getExpiration());
 
         return ResponseEntity.ok("密码正确,验证成功");
     }

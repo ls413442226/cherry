@@ -8,12 +8,10 @@ import java.util.List;
 
 public interface UserMapper extends BaseMapper<User> {
 
-    String queryUser(String username);
+    User queryUser(String username);
 
 
     int queryUserisNull(String username);
 
     int queryPhoneisNull(String mobile);
-
-    User querIsNull(String username);
 }

@@ -28,6 +28,12 @@ dubbo:
   registry:
     address: zookeeper://127.0.0.1:2181
 #配置短信平台信息
+cherry:
+  jwt:
+    #盐
+    key: cherry
+    #超时时间
+    ttl: 3600
 
 # 配置swagger
 swagger:
