@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/cherry-commons/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-consumer/login/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-consumer/myblog/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-consumer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-consumer/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-interface/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/loginService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-dubbo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-dubbo/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

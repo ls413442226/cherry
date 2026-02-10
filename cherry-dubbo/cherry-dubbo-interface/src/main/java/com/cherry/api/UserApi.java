@@ -1,6 +1,6 @@
 package com.cherry.api;
 
-import com.cherry.domain.db.User;
+import com.cherry.domain.login.db.User;
 
 
 public interface UserApi {
