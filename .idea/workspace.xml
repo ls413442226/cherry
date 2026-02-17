@@ -12,131 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf05275b-fbc9-4ebc-8220-b06e0b5af3a7" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cherry项目技术栈文档.Md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-commons/src/main/java/com/cherry/commons/utils/JwtUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-commons/src/main/java/com/cherry/commons/允许放的文件.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/db/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/db/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/db/UserRole.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/pojo/TokenPair.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/vo/ErrorCode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/vo/LoginResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/vo/RefreshRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/vo/Result.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-gateway/src/main/java/com/cherry/GatewayApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-gateway/src/main/java/com/cherry/filter/AuthGlobalFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-gateway/src/main/java/com/cherry/filter/TraceIdFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-gateway/src/main/resources/logback-spring.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/auth/auth-api/src/main/java/com/cherry/api/AuthService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/controller/AuthController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/excption/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/filter/TraceIdInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/service/impl/AuthServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/resources/logback-spring.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/blog/article-api/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/ArticleApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/controller/ArticleController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/excption/BusinessException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/excption/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/filter/TraceIdInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/mapper/ArticleMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/service/ArticleService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/service/impl/ArticleApiImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/resources/logback-spring.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/resources/mapper/ArticleMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.en.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-commons/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/src/main/java/com/cherry/commons/configuration/CherryAutoConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/src/main/java/com/cherry/commons/properties/JwtUtilProperties.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/src/main/java/com/cherry/commons/properties/SmsProperties.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/src/main/java/com/cherry/commons/properties/SwaggerProperties.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/src/main/java/com/cherry/commons/tmplates/JwtUtilTemplate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/src/main/java/com/cherry/commons/tmplates/SmsTemplate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/src/main/java/com/cherry/commons/tmplates/SwaggerTemplate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/src/main/resources/META-INF/spring.factories" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/target/classes/META-INF/spring.factories" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/target/classes/com/cherry/commons/configuration/CherryAutoConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/target/classes/com/cherry/commons/properties/JwtUtilProperties.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/target/classes/com/cherry/commons/properties/SmsProperties.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/target/classes/com/cherry/commons/properties/SwaggerProperties.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/target/classes/com/cherry/commons/tmplates/JwtUtilTemplate.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/target/classes/com/cherry/commons/tmplates/SmsTemplate.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-commons/target/classes/com/cherry/commons/tmplates/SwaggerTemplate.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/cherry-consumer.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-api/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/src/main/java/com/cherry/consumer/LoginApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/AuthApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/src/main/java/com/cherry/consumer/controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/src/main/java/com/cherry/consumer/service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/src/main/java/com/cherry/consumer/utils/MD5Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-commons/src/main/java/com/cherry/commons/utils/MD5Util.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/src/main/java/com/cherry/consumer/utils/RandomUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-commons/src/main/java/com/cherry/commons/utils/RandomUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/src/main/java/com/cherry/consumer/utils/UuidUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-commons/src/main/java/com/cherry/commons/utils/UuidUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/src/main/java/com/cherry/consumer/utils/VerifyCodeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-commons/src/main/java/com/cherry/commons/utils/VerifyCodeUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/target/classes/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/target/classes/com/cherry/consumer/LoginApp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/target/classes/com/cherry/consumer/controller/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/target/classes/com/cherry/consumer/service/UserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/target/classes/com/cherry/consumer/utils/MD5Util.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/target/classes/com/cherry/consumer/utils/RandomUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/target/classes/com/cherry/consumer/utils/UuidUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/login/target/classes/com/cherry/consumer/utils/VerifyCodeUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/myblog/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/myblog/src/main/java/com/cherry/consumer/MyBlogApp.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/myblog/src/main/java/com/cherry/consumer/controller/ArticleController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/myblog/src/main/java/com/cherry/consumer/service/ArticleService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/myblog/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/myblog/target/classes/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/myblog/target/classes/com/cherry/consumer/MyBlogApp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/myblog/target/classes/com/cherry/consumer/controller/ArticleController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/myblog/target/classes/com/cherry/consumer/service/ArticleService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-consumer/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-domain/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-domain/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/login/db/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/login/pojo/VerifyCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/pojo/VerifyCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/login/vo/ErrorResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/vo/ErrorResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/login/vo/UserVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/vo/UserVo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/myblog/db/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/blog/db/Article.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-domain/target/classes/com/cherry/domain/login/db/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-domain/target/classes/com/cherry/domain/login/pojo/VerifyCode.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-domain/target/classes/com/cherry/domain/login/vo/ErrorResult$ErrorResultBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-domain/target/classes/com/cherry/domain/login/vo/ErrorResult.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-domain/target/classes/com/cherry/domain/login/vo/UserVo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-domain/target/classes/com/cherry/domain/myblog/db/Article.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-interface/cherry-dubbo-interface.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-interface/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-interface/src/main/java/com/cherry/api/UserApi.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-interface/target/classes/com/cherry/api/UserApi.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/cherry-dubbo-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/cherry-dubbo-service.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/loginService/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/loginService/src/main/java/com/cherry/dubbo/CherryProviderApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/loginService/src/main/java/com/cherry/dubbo/impl/UserApiImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/loginService/src/main/java/com/cherry/dubbo/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/loginService/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/loginService/src/main/resources/mapper/UserMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/loginService/target/classes/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/loginService/target/classes/com/cherry/dubbo/CherryProviderApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/loginService/target/classes/com/cherry/dubbo/impl/UserApiImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/loginService/target/classes/com/cherry/dubbo/mapper/UserMapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/loginService/target/classes/mapper/UserMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/cherry-dubbo.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-dubbo/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/blog/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/注册及辅助功能实现.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -341,7 +217,7 @@
       <workItem from="1771000983768" duration="9278000" />
       <workItem from="1771051656668" duration="179000" />
       <workItem from="1771051873495" duration="8650000" />
-      <workItem from="1771271138889" duration="28528000" />
+      <workItem from="1771271138889" duration="29665000" />
     </task>
     <servers />
   </component>
