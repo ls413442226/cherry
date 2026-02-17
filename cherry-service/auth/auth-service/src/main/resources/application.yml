@@ -1,0 +1,47 @@
+server:
+  port: 18081
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/cherry?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true&useSSL=false
+    username: root
+    password: 123456
+
+  data:
+    redis:
+      host: 192.168.31.204
+      port: 6379
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+
+dubbo:
+  application:
+    name: auth-service
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: zookeeper://192.168.31.204:2181
+  provider:
+    timeout: 5000
+  # 🚀【优化3】关键！关闭配置中心 (开发环境通常不需要，能省 5-10秒)
+  config-center:
+    enabled: false
+
+  # 🚀【优化4】关键！关闭元数据中心 (能省 5-10秒)
+  metadata-report:
+    enabled: false
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*.xml
+  global-config:
+    db-config:
+      table-prefix: tb_   # 表名前缀
+#      id-type: auto   # id策略为自增长
+logging:
+  level:
+    root: info
+    com.example.blog: debug

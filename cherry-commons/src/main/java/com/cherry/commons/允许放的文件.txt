@@ -1,0 +1,6 @@
+jjwt (JWT)
+commons-lang3
+jackson / fastjson
+commons-codec
+joda-time
+lombok

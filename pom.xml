@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cherry</groupId>
     <artifactId>cherry</artifactId>
@@ -9,52 +10,65 @@
     <modules>
         <module>cherry-domain</module>
         <module>cherry-commons</module>
-        <module>cherry-consumer</module>
-        <module>cherry-dubbo</module>
+        <module>cherry-gateway</module>
+        <module>cherry-service</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.0.RELEASE</version>
+        <version>3.2.4</version>
     </parent>
     <properties>
-        <mysql.version>5.1.47</mysql.version>
-        <jackson.version>2.9.9</jackson.version>
+        <mysql.version>8.4.0</mysql.version>
         <druid.version>1.0.9</druid.version>
         <servlet-api.version>2.5</servlet-api.version>
         <jsp-api.version>2.0</jsp-api.version>
-        <joda-time.version>2.5</joda-time.version>
-        <commons-lang3.version>3.3.2</commons-lang3.version>
+        <joda-time.version>2.12.7</joda-time.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
         <commons-io.version>1.3.2</commons-io.version>
-        <mybatis.version>3.2.8</mybatis.version>
-        <mybatis.mybatis-plus>3.1.1</mybatis.mybatis-plus>
-        <lombok.version>1.18.4</lombok.version>
+        <mybatis.mybatis-plus>3.5.9</mybatis.mybatis-plus>
+        <lombok.version>1.18.32</lombok.version>
+        <commons-codec.version>1.11</commons-codec.version>
     </properties>
-    <!--通用依赖-->
+
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.8</version>
+            <version>${lombok.version}</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
+            <!-- 添加这一段：统一 joda-time 版本 -->
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda-time.version}</version>  <!-- 最新稳定版，修复了多个 bug 和兼容性问题 -->
+            </dependency>
+            <!-- 强制统一 Jackson 核心模块到 Spring Boot 3 的版本（2.15.x+） -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.15.3</version> <!-- 与 Spring Boot 3.2.4 匹配 -->
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.15.3</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.15.3</version>
+            </dependency>
+
+            <!-- 关键：强制升级 JavaTimeModule（jsr310） -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>2.15.3</version>
+            </dependency>
             <!-- mybatis-plus插件依赖 -->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -63,20 +77,9 @@
             </dependency>
             <!-- MySql -->
             <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mongodb</groupId>
-                <artifactId>mongodb-driver-sync</artifactId>
-                <version>3.9.1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <optional>true</optional>
-                <version>${lombok.version}</version>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>8.4.0</version>  <!-- 或保持8.0.33，如果你不想升级 -->
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -85,35 +88,82 @@
             </dependency>
             <!--RocketMQ相关依赖-->
             <dependency>
-                <groupId>org.apache.rocketmq</groupId>
-                <artifactId>rocketmq-spring-boot-starter</artifactId>
-                <version>2.1.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.rocketmq</groupId>
-                <artifactId>rocketmq-client</artifactId>
-                <version>4.3.2</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>3.7</version>
-            </dependency>
-            <!-- Jackson Json处理工具包 -->
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.alibaba</groupId>
-                <artifactId>druid</artifactId>
-                <version>${druid.version}</version>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>1.2.27</version>
             </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
-                <version>1.11</version>
+                <version>${commons-codec.version}</version>
+            </dependency>
+            <!-- Dubbo 3.2 BOM（统一所有 Dubbo 模块版本） -->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-bom</artifactId>
+                <version>3.2.12</version> <!-- 最新稳定版 -->
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Dubbo Spring Boot Starter（自动配置） -->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>3.2.12</version>
+            </dependency>
+
+            <!-- Zookeeper / Curator 升级（Dubbo 3 需要新版） -->
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>5.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-x-discovery</artifactId>
+                <version>5.5.0</version> <!-- 请根据实际使用的 Curator 版本调整 -->
+            </dependency>
+            <!-- OpenAPI 3-->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>2.3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>3.8.4</version>
+                <exclusions>
+                    <exclusion>  <!-- 移除旧 log4j 桥接 -->
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2023.0.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>0.12.6</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>0.12.6</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>0.12.6</version>
+                <scope>runtime</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -123,11 +173,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.2</version>
+                <version>3.13.0</version>  <!-- 最新版 -->
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
+                    <source>17</source>  <!-- 或你的 Java 版本 -->
+                    <target>17</target>
+                    <parameters>true</parameters>  <!-- 保留这个 -->
                 </configuration>
             </plugin>
         </plugins>

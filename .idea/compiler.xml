@@ -7,17 +7,34 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="myblog" />
+        <module name="article-api" />
         <module name="cherry-commons" />
         <module name="cherry-domain" />
-        <module name="cherry-dubbo-interface" />
-        <module name="loginService" />
-        <module name="login" />
+        <module name="auth-service" />
+        <module name="article-service" />
+        <module name="cherry-gateway" />
+        <module name="auth-api" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="cherry-consumer" target="17" />
+      <module name="cherry-dubbo" target="17" />
+      <module name="cherry-dubbo-interface" target="17" />
+      <module name="cherry-dubbo-service" target="17" />
+      <module name="login" target="17" />
+      <module name="loginService" target="17" />
+      <module name="myblog" target="17" />
+      <module name="myBlogService" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="article-api" options="-parameters" />
+      <module name="article-service" options="-parameters" />
+      <module name="auth" options="-parameters" />
+      <module name="auth-api" options="-parameters" />
+      <module name="auth-service" options="-parameters" />
+      <module name="blog" options="-parameters" />
       <module name="cherry" options="-parameters" />
       <module name="cherry-commons" options="-parameters" />
       <module name="cherry-consumer" options="-parameters" />
@@ -25,8 +42,11 @@
       <module name="cherry-dubbo" options="-parameters" />
       <module name="cherry-dubbo-interface" options="-parameters" />
       <module name="cherry-dubbo-service" options="-parameters" />
+      <module name="cherry-gateway" options="-parameters" />
+      <module name="cherry-service" options="-parameters" />
       <module name="login" options="-parameters" />
       <module name="loginService" options="-parameters" />
+      <module name="myBlogService" options="-parameters" />
       <module name="myblog" options="-parameters" />
     </option>
   </component>

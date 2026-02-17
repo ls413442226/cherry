@@ -8,11 +8,23 @@
     <file url="file://$PROJECT_DIR$/cherry-consumer/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cherry-domain/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-interface/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/loginService/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/cherry-dubbo/cherry-dubbo-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cherry-dubbo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cherry-dubbo/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-service/auth/auth-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-service/auth/auth-service/auth-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-service/auth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-service/auth/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-service/blog/article-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-service/blog/article-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-service/blog/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-service/blog/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-service/loginService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/cherry-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>
