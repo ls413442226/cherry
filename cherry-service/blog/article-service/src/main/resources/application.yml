@@ -9,7 +9,7 @@ spring:
 
 dubbo:
   application:
-    name: myblog-dubbo-service
+    name: blog-service
   protocol:
     name: dubbo
     port: -1
