@@ -1,7 +1,7 @@
 package com.cherry.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.cherry.domain.blog.db.Article;
+import com.cherry.domain.blog.entity.Article;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

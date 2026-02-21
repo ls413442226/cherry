@@ -1,8 +1,10 @@
-package com.cherry.domain.blog.db;
+package com.cherry.domain.blog.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * 弃用*/
 //@Data
 public class Article implements Serializable {
     private static final long serialVersionUID = 1L;

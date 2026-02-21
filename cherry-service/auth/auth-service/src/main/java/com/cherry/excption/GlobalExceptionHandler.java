@@ -1,7 +1,7 @@
 package com.cherry.excption;
 
-import com.cherry.domain.vo.ErrorCode;
-import com.cherry.domain.vo.Result;
+import com.cherry.domain.common.enums.ErrorCode;
+import com.cherry.domain.common.result.Result;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

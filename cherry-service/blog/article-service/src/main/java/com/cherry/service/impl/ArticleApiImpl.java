@@ -1,9 +1,9 @@
 package com.cherry.service.impl;
 
 
-import com.cherry.domain.blog.db.Article;
+import com.cherry.api.ArticleService;
+import com.cherry.domain.blog.entity.Article;
 import com.cherry.mapper.ArticleMapper;
-import com.cherry.service.ArticleService;
 import org.apache.dubbo.common.logger.Logger;
 import org.apache.dubbo.common.logger.LoggerFactory;
 import org.apache.dubbo.config.annotation.DubboService;

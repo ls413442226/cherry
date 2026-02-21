@@ -1,4 +1,4 @@
-package com.cherry.domain.vo;
+package com.cherry.domain.common.enums;
 
 public enum ErrorCode {
 

@@ -1,4 +1,4 @@
-package com.cherry.domain.auth.pojo;
+package com.cherry.domain.common.constant;
 
 import lombok.Data;
 

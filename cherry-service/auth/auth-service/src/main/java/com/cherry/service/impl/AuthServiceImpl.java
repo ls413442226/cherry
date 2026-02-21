@@ -1,97 +1,130 @@
 package com.cherry.service.impl;
 
 import com.cherry.api.AuthService;
-import com.cherry.domain.auth.pojo.TokenPair;
-import com.cherry.domain.auth.vo.UserVo;
-import com.cherry.mapper.UserMapper;
+import com.cherry.common.AuthRedisKey;
 import com.cherry.commons.utils.JwtUtil;
+import com.cherry.domain.auth.dto.TokenPair;
 import jakarta.annotation.Resource;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Aaliyah
+ */
 @DubboService
 public class AuthServiceImpl implements AuthService {
+
+    @Resource
+    private AuthenticationManager authenticationManager;
 
     @Resource(name = "stringRedisTemplate")
     private StringRedisTemplate redisTemplate;
 
-    @Resource
-    private UserMapper userMapper;
+    private static final long ACCESS_EXPIRE_MINUTES = 30;
+    private static final long REFRESH_EXPIRE_DAYS = 7;
 
     @Override
-    public TokenPair login(String username, String password, String deviceId, List<String> roles) {
+    public TokenPair login(String username,
+                           String password,
+                           String deviceId) {
 
-        UserVo user = userMapper.selectByUsername(username);
+        String lockKey = AuthRedisKey.LOGIN_LOCK + username;
+        Boolean locked = redisTemplate.hasKey(lockKey);
 
-        System.out.println("user：" + user);
-
-        if (user == null) {
-            throw new RuntimeException("用户不存在");
+        if (Boolean.TRUE.equals(locked)) {
+            throw new RuntimeException("账号已锁定，请15分钟后再试");
         }
 
-        if (!user.getPassword().equals(password)) {
-            throw new RuntimeException("密码错误");
-        }
+        clearLoginFail(username);
 
-        Long userId = user.getId();
 
+
+        // ⭐⭐⭐⭐⭐ 1. 交给 Spring Security
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(username, password);
+
+        Authentication authentication =
+                authenticationManager.authenticate(authenticationToken);
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        Long userId = Long.valueOf(userDetails.getUsername());
+
+        // ⭐ 收集角色
+        List<String> roles = userDetails.getAuthorities()
+                .stream()
+                .map(a -> a.getAuthority().replace("ROLE_", ""))
+                .toList();
+
+        // ⭐⭐⭐⭐⭐ 2. 生成 JWT
         String accessToken = JwtUtil.generateAccessToken(userId, deviceId, roles);
-
         String refreshToken = UUID.randomUUID().toString();
 
-        String key = "login:" + userId + ":" + deviceId;
+        // ⭐⭐⭐⭐⭐ 3. Redis 会话
+        String loginKey = "login:" + userId + ":" + deviceId;
+        String refreshKey = "refresh:" + userId + ":" + deviceId;
 
-        redisTemplate.opsForValue()
-                .set(key, refreshToken, 7, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set(
+                loginKey, accessToken, ACCESS_EXPIRE_MINUTES, TimeUnit.MINUTES);
 
-        TokenPair pair = new TokenPair();
-        pair.setAccessToken(accessToken);
-        pair.setRefreshToken(refreshToken);
+        redisTemplate.opsForValue().set(
+                refreshKey, refreshToken, REFRESH_EXPIRE_DAYS, TimeUnit.DAYS);
 
-        System.out.println("pair:" + pair);
-
-        return pair;
+        return new TokenPair(
+                accessToken,
+                refreshToken,
+                System.currentTimeMillis() + ACCESS_EXPIRE_MINUTES * 60 * 1000,
+                userId,
+                username,
+                roles
+        );
     }
 
-    @Override
-    public boolean checkLogin(Long userId, String deviceId) {
-        String key = "login:" + userId + ":" + deviceId;
-        return redisTemplate.hasKey(key);
+    private void recordLoginFail(String username) {
+
+        String failKey = AuthRedisKey.LOGIN_FAIL + username;
+        String lockKey = AuthRedisKey.LOGIN_LOCK + username;
+
+        Long failCount = redisTemplate.opsForValue().increment(failKey);
+
+        // 第一次失败 → 设置过期
+        if (failCount != null && failCount == 1) {
+            redisTemplate.expire(failKey, 15, TimeUnit.MINUTES);
+        }
+
+        // 达到5次 → 锁账号
+        if (failCount != null && failCount >= 5) {
+            redisTemplate.opsForValue().set(
+                    lockKey,
+                    "1",
+                    15,
+                    TimeUnit.MINUTES
+            );
+        }
+    }
+
+    private void clearLoginFail(String username) {
+        redisTemplate.delete(AuthRedisKey.LOGIN_FAIL + username);
+        redisTemplate.delete(AuthRedisKey.LOGIN_LOCK + username);
     }
 
     @Override
     public TokenPair refresh(Long userId, String deviceId, String refreshToken) {
-
-        String key = "login:" + userId + ":" + deviceId;
-
-        String storedToken = redisTemplate.opsForValue().get(key);
-        if (storedToken == null) {
-            throw new RuntimeException("登录已失效");
-        }
-        if (!storedToken.equals(refreshToken)) {
-            throw new RuntimeException("非法刷新请求");
-        }
-
-        /**
-         * 生成新的访问令牌。
-         * 使用JWT工具类创建一个新的访问令牌，包含用户ID、设备ID和角色信息。
-         *
-         * @param userId 用户唯一标识符
-         * @param deviceId 设备唯一标识符
-         * @param roles 用户角色列表
-         * @return String 新生成的JWT访问令牌字符串
-         */
-        String newAccessToken = JwtUtil.generateAccessToken(userId, deviceId, List.of("roles"));
-
-
-        TokenPair pair = new TokenPair();
-        pair.setAccessToken(newAccessToken);
-        pair.setRefreshToken(refreshToken);
-
-        return pair;
+        return null;
     }
+
+    @Override
+    public boolean checkLogin(Long userId, String deviceId, String authorization) {
+        return false;
+    }
+
 }
+

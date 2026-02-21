@@ -5,6 +5,9 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author Aaliyah
+ */
 @SpringBootApplication
 @EnableDubbo
 @MapperScan(basePackages = "com.cherry.mapper", annotationClass = org.apache.ibatis.annotations.Mapper.class)

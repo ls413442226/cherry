@@ -11,13 +11,13 @@
     <delete id="delete">
         DELETE FROM articles WHERE id = #{id}
     </delete>
-    <select id="findAll" resultType="com.cherry.domain.blog.db.Article">
+    <select id="findAll" resultType="com.cherry.domain.blog.entity.Article">
         SELECT id, title, content, created_at AS createdAt
         FROM articles
         ORDER BY created_at DESC
     </select>
 
-    <select id="findById" resultType="com.cherry.domain.blog.db.Article">
+    <select id="findById" resultType="com.cherry.domain.blog.entity.Article">
         SELECT id, title, content, created_at AS createdAt
         FROM articles
         WHERE id = #{id}

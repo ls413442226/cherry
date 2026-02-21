@@ -45,3 +45,9 @@ logging:
   level:
     root: info
     com.example.blog: debug
+# Swagger 配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs

@@ -1,8 +1,8 @@
 package com.cherry.controller;
 
-import com.cherry.service.ArticleService;
-import com.cherry.domain.blog.db.Article;
-import com.cherry.domain.vo.Result;
+import com.cherry.api.ArticleService;
+import com.cherry.domain.blog.entity.Article;
+import com.cherry.domain.common.result.Result;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;

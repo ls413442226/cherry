@@ -1,5 +1,6 @@
-package com.cherry.domain.vo;
+package com.cherry.domain.common.result;
 
+import com.cherry.domain.common.enums.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

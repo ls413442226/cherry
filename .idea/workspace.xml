@@ -11,12 +11,67 @@
     <option name="showLiveBeansGraph" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf05275b-fbc9-4ebc-8220-b06e0b5af3a7" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/cherry-gateway/src/main/java/com/cherry/filter/RateLimitFilter.java" afterDir="false" />
+    <list default="true" id="cf05275b-fbc9-4ebc-8220-b06e0b5af3a7" name="更改" comment="ip限流 RateLimitFilter 每分钟不超过60次访问">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth_init.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/dto/LoginRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/dto/UserAuthDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/dto/UserWithRoleDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/entity/LoginLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/entity/RefreshToken.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/entity/UserDevice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/vo/DeviceVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/blog/entity/BlogArticle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/blog/entity/BlogArticleTag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/blog/entity/BlogCategory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/blog/entity/BlogTag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/common/constant/RedisKeyConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/common/AuthRedisKey.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/excption/BusinessException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/filter/JwtAuthFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/service/impl/SecurityUserDetailsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/domain结构.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cherry项目技术栈文档.Md" beforeDir="false" afterPath="$PROJECT_DIR$/Cherry项目技术栈文档.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/db/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/entity/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/db/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/db/UserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/entity/UserRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/pojo/TokenPair.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/dto/TokenPair.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/pojo/VerifyCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/common/constant/VerifyCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/vo/UserVo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/blog/db/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/blog/entity/Article.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/vo/ErrorCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/common/enums/ErrorCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/vo/ErrorResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/common/result/ErrorResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/vo/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/vo/LoginResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/vo/RefreshRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/dto/RefreshRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/vo/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/common/result/Result.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-gateway/src/main/java/com/cherry/filter/AuthGlobalFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-gateway/src/main/java/com/cherry/filter/AuthGlobalFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-gateway/src/main/java/com/cherry/filter/RateLimitFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-gateway/src/main/java/com/cherry/filter/RateLimitFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-gateway/src/main/resources/logback-spring.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-gateway/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-api/src/main/java/com/cherry/api/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-api/src/main/java/com/cherry/api/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/AuthApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/AuthApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/excption/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/excption/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/filter/TraceIdInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/filter/TraceIdInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/service/impl/AuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/service/impl/AuthServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/resources/logback-spring.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/resources/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/blog/article-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/blog/article-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/blog/article-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/ArticleApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/ArticleApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/controller/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/excption/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/excption/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/mapper/ArticleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/mapper/ArticleMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/blog/article-api/src/main/java/com/cherry/api/ArticleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/service/impl/ArticleApiImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/java/com/cherry/service/impl/ArticleApiImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/resources/logback-spring.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/resources/mapper/ArticleMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/blog/article-service/src/main/resources/mapper/ArticleMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/APP_NAME_IS_UNDEFINED.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/APP_NAME_IS_UNDEFINED.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,7 +99,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
@@ -57,56 +112,56 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Maven.blog [clean].executor": "Run",
-    "Maven.cherry [clean].executor": "Run",
-    "Maven.cherry [install].executor": "Run",
-    "Maven.cherry [org.apache.maven.plugins:maven-clean-plugin:3.3.2:clean].executor": "Run",
-    "Maven.cherry [test].executor": "Run",
-    "Maven.cherry [validate].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.ArticleApp.executor": "Run",
-    "Spring Boot.AuthApp.executor": "Run",
-    "Spring Boot.CherryConsumerApplication (1).executor": "Run",
-    "Spring Boot.CherryConsumerApplication (2).executor": "Run",
-    "Spring Boot.CherryConsumerApplication.executor": "Run",
-    "Spring Boot.CherryProviderApp.executor": "Run",
-    "Spring Boot.CherryProviderApplication.executor": "Run",
-    "Spring Boot.GatewayApplication.executor": "Run",
-    "Spring Boot.LoginApp.executor": "Run",
-    "Spring Boot.LoginProviderApp.executor": "Run",
-    "Spring Boot.MyBlogApp.executor": "Run",
-    "Spring Boot.MyBlogProviderApp.executor": "Run",
-    "Spring Boot.loginApp.executor": "Run",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "full.screen.before.presentation.mode": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "jdk.selected.JAVA_MODULE": "17",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/dev/cherry/cherry-service/blog/article-service/src/main/resources",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "editor.preferences.jsOptions",
-    "vue.rearranger.settings.migration": "true",
-    "应用程序.LoginApp.executor": "Run"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Maven.blog [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.cherry [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.cherry [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.cherry [org.apache.maven.plugins:maven-clean-plugin:3.3.2:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.cherry [test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.cherry [validate].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ArticleApp.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.AuthApp.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.CherryConsumerApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.CherryConsumerApplication (2).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.CherryConsumerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.CherryProviderApp.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.CherryProviderApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.GatewayApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.LoginApp.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.LoginProviderApp.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.MyBlogApp.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.MyBlogProviderApp.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.loginApp.executor&quot;: &quot;Run&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/dev/cherry/cherry-service/blog/article-service/src/main/resources&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
+    &quot;应用程序.LoginApp.executor&quot;: &quot;Run&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -126,6 +181,9 @@
       <recent name="D:\dev\cherry" />
       <recent name="D:\dev\cherry\cherry-consumer\login\src\main\resources" />
       <recent name="D:\dev\cherry\cherry-dubbo\cherry-dubbo-service\loginService\src\main\java\com\cherry" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.cherry.excption" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -184,9 +242,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.AuthApp" />
         <item itemvalue="Spring Boot.GatewayApplication" />
         <item itemvalue="Spring Boot.ArticleApp" />
-        <item itemvalue="Spring Boot.AuthApp" />
       </list>
     </recent_temporary>
   </component>
@@ -222,8 +280,19 @@
       <workItem from="1771000983768" duration="9278000" />
       <workItem from="1771051656668" duration="179000" />
       <workItem from="1771051873495" duration="8650000" />
-      <workItem from="1771271138889" duration="35520000" />
+      <workItem from="1771271138889" duration="63117000" />
+      <workItem from="1771422622549" duration="1382000" />
+      <workItem from="1771424033961" duration="21479000" />
     </task>
+    <task id="LOCAL-00001" summary="ip限流 RateLimitFilter 每分钟不超过60次访问">
+      <option name="closed" value="true" />
+      <created>1771330894101</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1771330894101</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,6 +302,7 @@
     <option featureType="dependencySupport" implementationName="java:org.springframework:spring-core" />
     <option featureType="dependencySupport" implementationName="java:junit:junit" />
     <option featureType="dependencySupport" implementationName="java:org.apache.dubbo:dubbo" />
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.lua" />
     <option featureType="dependencySupport" implementationName="java:io.projectreactor:reactor-core" />
     <option featureType="dependencySupport" implementationName="java:org.springframework.data:spring-data-commons" />
     <option featureType="dependencySupport" implementationName="java:org.hibernate.validator:hibernate-validator" />
@@ -251,6 +321,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="ip限流 RateLimitFilter 每分钟不超过60次访问" />
+    <option name="LAST_COMMIT_MESSAGE" value="ip限流 RateLimitFilter 每分钟不超过60次访问" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

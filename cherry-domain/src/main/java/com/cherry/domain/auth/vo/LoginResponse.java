@@ -1,4 +1,4 @@
-package com.cherry.domain.vo;
+package com.cherry.domain.auth.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * @author Aaliyah
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
