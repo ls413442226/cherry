@@ -23,10 +23,20 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Aaliyah
+ * 认证核心服务：负责登录、续签、登录态校验、注销与 token 黑名单。
+ *
+ * <p>说明：
+ * <ul>
+ *   <li>accessToken 作为短期凭证，直接保存到 Redis 的 login:{userId}:{deviceId}。</li>
+ *   <li>refreshToken 作为长期凭证，保存到 Redis 的 refresh:{refreshToken}，值为会话 JSON。</li>
+ *   <li>另外维护 refresh:index:{userId}:{deviceId} -> refreshToken，便于注销时按设备清理。</li>
+ * </ul>
  */
 @DubboService
 public class AuthServiceImpl implements AuthService {
+
+    /** refresh 索引 key 前缀（按用户+设备定位当前 refreshToken） */
+    private static final String REFRESH_INDEX_PREFIX = "refresh:index:";
 
     @Resource
     private RiskControlService riskControlService;
@@ -52,9 +62,9 @@ public class AuthServiceImpl implements AuthService {
     /** 锁定时间 */
     private static final long LOCK_MINUTES = 15;
 
-    // ==============================
-    // 登录（企业级最终版）
-    // ==============================
+    /**
+     * 登录流程：风控 -> 账号密码认证 -> 生成 token -> 写入 Redis 会话。
+     */
     @Override
     public TokenPair login(String username,
                            String password,
@@ -123,7 +133,10 @@ public class AuthServiceImpl implements AuthService {
         // ==============================
 
         String loginKey = "login:" + userId + ":" + deviceId;
-        String refreshKey = "refresh:" + userId + ":" + deviceId;
+        // refresh 主键使用 refreshToken，便于续签时按 token 直接查询。
+        String refreshKey = "refresh:" + refreshToken;
+        // 额外索引，便于注销时按 userId + deviceId 删除 refresh。
+        String refreshIndexKey = REFRESH_INDEX_PREFIX + userId + ":" + deviceId;
 
         redisTemplate.opsForValue().set(
                 loginKey,
@@ -134,6 +147,13 @@ public class AuthServiceImpl implements AuthService {
 
         redisTemplate.opsForValue().set(
                 refreshKey,
+                JsonUtil.toJson(new LoginSession(userId, deviceId)),
+                REFRESH_EXPIRE_DAYS,
+                TimeUnit.DAYS
+        );
+
+        redisTemplate.opsForValue().set(
+                refreshIndexKey,
                 refreshToken,
                 REFRESH_EXPIRE_DAYS,
                 TimeUnit.DAYS
@@ -154,9 +174,9 @@ public class AuthServiceImpl implements AuthService {
         );
     }
 
-    // ==============================
-    // 登录失败记录（企业级）
-    // ==============================
+    /**
+     * 记录登录失败次数，达到阈值后短时锁定账号。
+     */
     private void recordLoginFail(String username) {
 
         String failKey = AuthRedisKey.LOGIN_FAIL + username;
@@ -180,9 +200,7 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
-    // ==============================
-    // 清除失败记录
-    // ==============================
+    /** 登录成功后清理失败计数与锁定状态。 */
     private void clearLoginFail(String username) {
         redisTemplate.delete(AuthRedisKey.LOGIN_FAIL + username);
         redisTemplate.delete(AuthRedisKey.LOGIN_LOCK + username);
@@ -244,6 +262,13 @@ public class AuthServiceImpl implements AuthService {
                 TimeUnit.DAYS
         );
 
+        redisTemplate.opsForValue().set(
+                REFRESH_INDEX_PREFIX + userId + ":" + deviceId,
+                newRefreshToken,
+                REFRESH_EXPIRE_DAYS,
+                TimeUnit.DAYS
+        );
+
         // 更新 access 会话
         redisTemplate.opsForValue().set(
                 "login:" + userId + ":" + deviceId,
@@ -269,8 +294,7 @@ public class AuthServiceImpl implements AuthService {
                               String deviceId,
                               String authorization) {
 
-
-
+        // 支持 Authorization: Bearer xxx / 纯 token 两种格式。
         authorization = extractToken(authorization);
 
         if (authorization == null || authorization.isBlank()) {
@@ -301,10 +325,14 @@ public class AuthServiceImpl implements AuthService {
 
         // 2️⃣ 删除会话
         String loginKey = "login:" + userId + ":" + deviceId;
-        String refreshKey = "refresh:" + userId + ":" + deviceId;
+        String refreshIndexKey = REFRESH_INDEX_PREFIX + userId + ":" + deviceId;
+        String refreshToken = redisTemplate.opsForValue().get(refreshIndexKey);
 
         redisTemplate.delete(loginKey);
-        redisTemplate.delete(refreshKey);
+        redisTemplate.delete(refreshIndexKey);
+        if (refreshToken != null && !refreshToken.isBlank()) {
+            redisTemplate.delete("refresh:" + refreshToken);
+        }
     }
 
     /**
@@ -371,4 +399,3 @@ public class AuthServiceImpl implements AuthService {
     }
 
 }
-

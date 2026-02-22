@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Aaliyah
+ * JWT 鉴权过滤器：解析令牌、校验黑名单与 Redis 登录态，并将认证信息写入 SecurityContext。
  */
 @Slf4j
 @Component
@@ -56,8 +56,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         try {
-            // 2️⃣ 解析 JWT
-            Claims claims = JwtUtil.parse(authHeader);
+            // 2️⃣ 统一提取 token（兼容 Bearer 前缀），再解析 JWT
+            String token = extractToken(authHeader);
+            if (!StringUtils.hasText(token)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
+            Claims claims = JwtUtil.parse(token);
 
             String jti = claims.get("jti", String.class);
             String blackKey = AuthRedisKey.BLACK_TOKEN + jti;
@@ -82,7 +88,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             String redisKey = "login:" + userId + ":" + deviceId;
             String redisToken = redisTemplate.opsForValue().get(redisKey);
 
-            if (!authHeader.equals(redisToken)) {
+            if (!token.equals(redisToken)) {
                 log.warn("token 已失效 userId={} deviceId={}", userId, deviceId);
                 filterChain.doFilter(request, response);
                 return;
@@ -120,6 +126,21 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    /**
+     * 从 Authorization 头中提取纯 token。
+     */
+    private String extractToken(String authorization) {
+        if (!StringUtils.hasText(authorization)) {
+            return null;
+        }
+
+        if (authorization.startsWith("Bearer ")) {
+            return authorization.substring(7);
+        }
+
+        return authorization;
     }
 
     /**
