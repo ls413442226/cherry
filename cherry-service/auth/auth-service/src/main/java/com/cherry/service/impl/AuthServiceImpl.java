@@ -2,7 +2,7 @@ package com.cherry.service.impl;
 
 import com.cherry.api.AuthService;
 import com.cherry.api.RiskControlService;
-import com.cherry.common.AuthRedisKey;
+import com.cherry.common.constant.AuthRedisKey;
 import com.cherry.commons.utils.JsonUtil;
 import com.cherry.commons.utils.JwtUtil;
 import com.cherry.domain.auth.dto.TokenPair;
@@ -10,21 +10,24 @@ import com.cherry.domain.auth.entity.LoginSession;
 import com.cherry.mapper.UserMapper;
 import io.jsonwebtoken.Claims;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.Objects;
+
 
 /**
  * @author Aaliyah
  */
+@Slf4j
 @DubboService
 public class AuthServiceImpl implements AuthService {
 
@@ -36,6 +39,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Resource(name = "stringRedisTemplate")
     private StringRedisTemplate redisTemplate;
+
+    @Resource
+    private DefaultRedisScript<Long> refreshCheckScript;
 
     @Resource
     private UserMapper userMapper;
@@ -59,12 +65,13 @@ public class AuthServiceImpl implements AuthService {
     public TokenPair login(String username,
                            String password,
                            String deviceId,
+                           String fingerprint,
                            String ip) {
 
         riskControlService.checkLoginRisk(username, ip);
 
         // ✅ 0. 基础参数校验（企业必须）
-        if (username == null || password == null || deviceId == null) {
+            if (username == null || password == null || deviceId == null) {
             throw new RuntimeException("参数不能为空");
         }
 
@@ -111,12 +118,15 @@ public class AuthServiceImpl implements AuthService {
         // ==============================
 
         String accessToken =
-                JwtUtil.generateAccessToken(userId, deviceId, roles);
+                JwtUtil.generateAccessToken(userId, deviceId, roles,fingerprint);
 
         String refreshToken = UUID.randomUUID().toString();
 
         // ⭐⭐⭐⭐⭐ 登录成功后（生成token之后）
         riskControlService.checkDeviceRisk(userId, deviceId, ip);
+
+        // ⭐⭐⭐⭐⭐ 踢掉该设备旧 token
+        kickOldDeviceSession(userId, deviceId);
 
         // ==============================
         // ⭐⭐⭐⭐⭐ Redis 会话（企业级）
@@ -191,51 +201,53 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public TokenPair refresh(Long userId,
                              String deviceId,
-                             String refreshToken) {
+                             String refreshToken,
+                             String fingerprint) {
 
-        String refreshKey = "refresh:" + refreshToken;
-
-        // ✅ 1. 查 refresh 是否存在
+        String refreshKey = "refresh:" + userId + ":" + deviceId;
+        log.info("refreshKey={}", refreshKey);
+        // 1️⃣ 读取 session
         String sessionJson = redisTemplate.opsForValue().get(refreshKey);
-
+        log.info("sessionJson={}", sessionJson);
         if (sessionJson == null) {
             throw new RuntimeException("refreshToken 已失效");
         }
 
-        // ✅ 2. 解析 session
-        LoginSession session = JsonUtil.fromJson(sessionJson, LoginSession.class);
+        LoginSession session =
+                JsonUtil.fromJson(sessionJson, LoginSession.class);
 
+        // 2️⃣ 三重校验（企业级必须）
         if (!session.getUserId().equals(userId)
-                || !session.getDeviceId().equals(deviceId)) {
-            throw new RuntimeException("非法 refreshToken");
+                || !session.getDeviceId().equals(deviceId)
+                || !Objects.equals(session.getFingerprint(), fingerprint)) {
+
+            throw new RuntimeException("refreshToken 校验失败");
         }
 
-        // ==============================
-        // 🔥🔥🔥 关键：删除旧 refresh（防重放）
-        // ==============================
+        // 3️⃣ Lua 原子删除（防重放）
+        Long result = redisTemplate.execute(
+                refreshCheckScript,
+                Collections.singletonList(refreshKey),
+                sessionJson
+        );
 
-        redisTemplate.delete(refreshKey);
+        if (result == null || result != 1) {
+            throw new RuntimeException("refreshToken 已被使用");
+        }
 
-        // ==============================
-        // 重新查角色（保证权限最新）
-        // ==============================
-
+        // 4️⃣ 重新加载角色
         List<String> roles = loadRoles(userId);
 
-        // ==============================
-        // 生成新 token
-        // ==============================
-
+        // 5️⃣ 生成新 token
         String newAccessToken =
-                JwtUtil.generateAccessToken(userId, deviceId, roles);
+                JwtUtil.generateAccessToken(userId, deviceId, roles, fingerprint);
 
         String newRefreshToken = UUID.randomUUID().toString();
 
-        // ==============================
-        // 写入新 refresh（轮换）
-        // ==============================
+        // 6️⃣ 写入新 refresh
+        LoginSession newSession =
+                new LoginSession(userId, deviceId, fingerprint);
 
-        LoginSession newSession = new LoginSession(userId, deviceId);
 
         redisTemplate.opsForValue().set(
                 "refresh:" + newRefreshToken,
@@ -244,7 +256,7 @@ public class AuthServiceImpl implements AuthService {
                 TimeUnit.DAYS
         );
 
-        // 更新 access 会话
+        // 7️⃣ 更新 access 会话
         redisTemplate.opsForValue().set(
                 "login:" + userId + ":" + deviceId,
                 newAccessToken,
@@ -367,6 +379,18 @@ public class AuthServiceImpl implements AuthService {
 
         } catch (Exception e) {
             return true;
+        }
+    }
+
+    private void kickOldDeviceSession(Long userId, String deviceId) {
+
+        String loginKey = "login:" + userId + ":" + deviceId;
+
+        String oldToken = redisTemplate.opsForValue().get(loginKey);
+
+        if (oldToken != null) {
+            blacklistToken(oldToken);
+            log.info("踢掉旧设备会话 userId={} deviceId={}", userId, deviceId);
         }
     }
 

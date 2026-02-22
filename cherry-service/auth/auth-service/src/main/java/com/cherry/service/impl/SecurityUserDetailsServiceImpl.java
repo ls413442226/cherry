@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
-public class SecurityUserDetailsService implements UserDetailsService {
+public class SecurityUserDetailsServiceImpl implements UserDetailsService {
 
     @Resource
     private UserMapper userMapper;

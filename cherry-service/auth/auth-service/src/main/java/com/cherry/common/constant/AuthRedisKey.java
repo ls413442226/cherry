@@ -1,4 +1,4 @@
-package com.cherry.common;
+package com.cherry.common.constant;
 
 public interface AuthRedisKey {
 

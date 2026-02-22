@@ -8,11 +8,13 @@ public interface AuthService {
     TokenPair login(String username,
                     String password,
                     String deviceId,
+                    String fingerprint,
                     String ip);
 
     TokenPair refresh(Long userId,
                       String deviceId,
-                      String refreshToken);
+                      String refreshToken,
+                      String fingerprint);
 
     boolean checkLogin(Long userId,
                        String deviceId,

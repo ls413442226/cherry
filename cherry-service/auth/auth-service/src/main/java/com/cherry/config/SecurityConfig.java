@@ -21,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 /**
  * 安全配置类，用于配置Spring Security的相关策略和过滤器链。
  * 该类通过@EnableWebSecurity启用Web安全支持，并定义了认证和授权规则。
+ * @author Aaliyah
  */
 @Configuration
 @EnableWebSecurity
