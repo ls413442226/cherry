@@ -11,7 +11,29 @@
     <option name="showLiveBeansGraph" value="false" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf05275b-fbc9-4ebc-8220-b06e0b5af3a7" name="更改" comment="使用 spring Security 重构" />
+    <list default="true" id="cf05275b-fbc9-4ebc-8220-b06e0b5af3a7" name="更改" comment="使用 spring Security 重构">
+      <change afterPath="$PROJECT_DIR$/cherry-commons/src/main/java/com/cherry/commons/utils/JsonUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-domain/src/main/java/com/cherry/domain/auth/entity/LoginSession.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-service/auth/auth-api/src/main/java/com/cherry/api/RiskControlService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/service/impl/RiskControlServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-commons/src/main/java/com/cherry/commons/utils/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-commons/src/main/java/com/cherry/commons/utils/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-commons/target/classes/com/cherry/commons/utils/JwtUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-commons/target/classes/com/cherry/commons/utils/JwtUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-api/src/main/java/com/cherry/api/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-api/src/main/java/com/cherry/api/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-api/target/classes/com/cherry/api/AuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-api/target/classes/com/cherry/api/AuthService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/common/AuthRedisKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/common/AuthRedisKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/filter/JwtAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/filter/JwtAuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/service/impl/AuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/java/com/cherry/service/impl/AuthServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/resources/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/target/classes/com/cherry/controller/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/target/classes/com/cherry/controller/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/target/classes/com/cherry/filter/JwtAuthFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/target/classes/com/cherry/filter/JwtAuthFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/target/classes/com/cherry/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/target/classes/com/cherry/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/target/classes/com/cherry/service/impl/AuthServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/target/classes/com/cherry/service/impl/AuthServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cherry-service/auth/auth-service/target/classes/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cherry-service/auth/auth-service/target/classes/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/APP_NAME_IS_UNDEFINED.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/APP_NAME_IS_UNDEFINED.log" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -224,7 +246,7 @@
       <workItem from="1771051873495" duration="8650000" />
       <workItem from="1771271138889" duration="63117000" />
       <workItem from="1771422622549" duration="1382000" />
-      <workItem from="1771424033961" duration="21955000" />
+      <workItem from="1771424033961" duration="31479000" />
     </task>
     <task id="LOCAL-00001" summary="ip限流 RateLimitFilter 每分钟不超过60次访问">
       <option name="closed" value="true" />

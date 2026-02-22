@@ -1,5 +1,6 @@
 package com.cherry.filter;
 
+import com.cherry.common.AuthRedisKey;
 import com.cherry.commons.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
 import jakarta.annotation.Resource;
@@ -37,6 +38,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
+
         String path = request.getRequestURI();
 
         // ✅ 白名单直接放行
@@ -56,6 +58,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         try {
             // 2️⃣ 解析 JWT
             Claims claims = JwtUtil.parse(authHeader);
+
+            String jti = claims.get("jti", String.class);
+            String blackKey = AuthRedisKey.BLACK_TOKEN + jti;
+
+            Boolean blacklisted = redisTemplate.hasKey(blackKey);
+            if (Boolean.TRUE.equals(blacklisted)) {
+                log.warn("token 已进入黑名单 userId={}", claims.get("userId"));
+                filterChain.doFilter(request, response);
+                return;
+            }
 
             Long userId = claims.get("userId", Long.class);
             String deviceId = claims.get("deviceId", String.class);

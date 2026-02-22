@@ -6,11 +6,9 @@ import com.cherry.domain.auth.dto.TokenPair;
 import com.cherry.domain.auth.vo.LoginResponse;
 import com.cherry.domain.auth.dto.RefreshRequest;
 import com.cherry.domain.common.result.Result;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Aaliyah
@@ -23,12 +21,17 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public Result<LoginResponse> login(@RequestBody LoginRequest dto) {
+    public Result<LoginResponse> login(@RequestBody LoginRequest dto,
+                                       HttpServletRequest httpRequest) {
+
+        // ⭐⭐⭐⭐⭐ 获取真实 IP（企业必须）
+        String ip = getClientIp(httpRequest);
 
         TokenPair pair = authService.login(
                 dto.getUsername(),
                 dto.getPassword(),
-                dto.getDeviceId()
+                dto.getDeviceId(),
+                ip
         );
 
         LoginResponse response =
@@ -57,6 +60,32 @@ public class AuthController {
         );
 
         return Result.success(pair);
+    }
+
+    @PostMapping("/logout")
+    public Result<Void> logout(@RequestHeader("Authorization") String token,
+                               @RequestParam Long userId,
+                               @RequestParam String deviceId) {
+
+        authService.logout(token, userId, deviceId);
+        return Result.success(null);
+    }
+
+    private String getClientIp(HttpServletRequest request) {
+
+        String ip = request.getHeader("X-Forwarded-For");
+
+        if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
+            // 多级代理取第一个
+            return ip.split(",")[0];
+        }
+
+        ip = request.getHeader("X-Real-IP");
+        if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
+            return ip;
+        }
+
+        return request.getRemoteAddr();
     }
 }
 

@@ -17,4 +17,6 @@ public interface UserMapper extends BaseMapper<User> {
     List<UserAuthDTO> selectUserWithRolesByUsername(String username);
 
     UserWithRoleDTO selectUserWithRolesByUserId(Long userId);
+
+    List<String> selectRoleCodesByUserId(Long userId);
 }

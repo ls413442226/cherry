@@ -7,7 +7,8 @@ public interface AuthService {
 
     TokenPair login(String username,
                     String password,
-                    String deviceId);
+                    String deviceId,
+                    String ip);
 
     TokenPair refresh(Long userId,
                       String deviceId,
@@ -17,4 +18,7 @@ public interface AuthService {
                        String deviceId,
                        String authorization);
 
+    void logout(String token, Long userId, String deviceId);
+
+    boolean isTokenBlacklisted(String accessToken);
 }
