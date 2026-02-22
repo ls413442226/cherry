@@ -3,10 +3,8 @@ package com.cherry.service.impl;
 import com.cherry.api.AuthService;
 import com.cherry.api.RiskControlService;
 import com.cherry.common.constant.AuthRedisKey;
-import com.cherry.commons.utils.JsonUtil;
 import com.cherry.commons.utils.JwtUtil;
 import com.cherry.domain.auth.dto.TokenPair;
-import com.cherry.domain.auth.entity.LoginSession;
 import com.cherry.mapper.UserMapper;
 import io.jsonwebtoken.Claims;
 import jakarta.annotation.Resource;
@@ -207,20 +205,14 @@ public class AuthServiceImpl implements AuthService {
         String refreshKey = "refresh:" + userId + ":" + deviceId;
         log.info("refreshKey={}", refreshKey);
         // 1️⃣ 读取 session
-        String sessionJson = redisTemplate.opsForValue().get(refreshKey);
-        log.info("sessionJson={}", sessionJson);
-        if (sessionJson == null) {
+        String cachedRefreshToken = redisTemplate.opsForValue().get(refreshKey);
+        log.info("cachedRefreshToken={}", cachedRefreshToken);
+        if (cachedRefreshToken == null) {
             throw new RuntimeException("refreshToken 已失效");
         }
 
-        LoginSession session =
-                JsonUtil.fromJson(sessionJson, LoginSession.class);
-
-        // 2️⃣ 三重校验（企业级必须）
-        if (!session.getUserId().equals(userId)
-                || !session.getDeviceId().equals(deviceId)
-                || !Objects.equals(session.getFingerprint(), fingerprint)) {
-
+        // 2️⃣ 校验 refreshToken 是否匹配
+        if (!Objects.equals(cachedRefreshToken, refreshToken)) {
             throw new RuntimeException("refreshToken 校验失败");
         }
 
@@ -228,7 +220,7 @@ public class AuthServiceImpl implements AuthService {
         Long result = redisTemplate.execute(
                 refreshCheckScript,
                 Collections.singletonList(refreshKey),
-                sessionJson
+                cachedRefreshToken
         );
 
         if (result == null || result != 1) {
@@ -245,13 +237,9 @@ public class AuthServiceImpl implements AuthService {
         String newRefreshToken = UUID.randomUUID().toString();
 
         // 6️⃣ 写入新 refresh
-        LoginSession newSession =
-                new LoginSession(userId, deviceId, fingerprint);
-
-
         redisTemplate.opsForValue().set(
-                "refresh:" + newRefreshToken,
-                JsonUtil.toJson(newSession),
+                refreshKey,
+                newRefreshToken,
                 REFRESH_EXPIRE_DAYS,
                 TimeUnit.DAYS
         );
@@ -395,4 +383,3 @@ public class AuthServiceImpl implements AuthService {
     }
 
 }
-
