@@ -1,6 +1,7 @@
 package com.cherry.controller;
 
 import com.cherry.api.AuthService;
+import com.cherry.common.util.FingerprintUtil;
 import com.cherry.domain.auth.dto.LoginRequest;
 import com.cherry.domain.auth.dto.TokenPair;
 import com.cherry.domain.auth.vo.LoginResponse;
@@ -27,10 +28,13 @@ public class AuthController {
         // ⭐⭐⭐⭐⭐ 获取真实 IP（企业必须）
         String ip = getClientIp(httpRequest);
 
+        String fingerprint = FingerprintUtil.build(httpRequest);
+
         TokenPair pair = authService.login(
                 dto.getUsername(),
                 dto.getPassword(),
                 dto.getDeviceId(),
+                fingerprint,
                 ip
         );
 
@@ -51,12 +55,15 @@ public class AuthController {
 
     @PostMapping("/refresh")
     public Result<TokenPair> refresh(
-            @RequestBody RefreshRequest request) {
+            @RequestBody RefreshRequest rReq,
+            HttpServletRequest request) {
+
 
         TokenPair pair = authService.refresh(
-                request.getUserId(),
-                request.getDeviceId(),
-                request.getRefreshToken()
+                rReq.getUserId(),
+                rReq.getDeviceId(),
+                rReq.getRefreshToken(),
+                FingerprintUtil.build(request)
         );
 
         return Result.success(pair);

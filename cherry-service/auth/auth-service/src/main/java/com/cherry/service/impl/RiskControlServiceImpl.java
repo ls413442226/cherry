@@ -1,17 +1,32 @@
 package com.cherry.service.impl;
 
 import com.cherry.api.RiskControlService;
-import com.cherry.common.AuthRedisKey;
+import com.cherry.common.constant.AuthRedisKey;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
 public class RiskControlServiceImpl implements RiskControlService {
+
+    private final RedisScript<Long> DEVICE_LUA = RedisScript.of(
+            """
+            local size = redis.call('SCARD', KEYS[1])
+            if size >= tonumber(ARGV[2]) then
+                return -1
+            end
+            redis.call('SADD', KEYS[1], ARGV[1])
+            redis.call('EXPIRE', KEYS[1], ARGV[3])
+            return size + 1
+            """,
+            Long.class
+    );
 
     @Resource(name = "stringRedisTemplate")
     private StringRedisTemplate redisTemplate;
@@ -71,23 +86,22 @@ public class RiskControlServiceImpl implements RiskControlService {
 
         String deviceKey = AuthRedisKey.USER_DEVICES + userId;
 
-        // ⭐⭐⭐⭐⭐ 使用 Set 存设备（企业标准）
-        Long size = redisTemplate.opsForSet().size(deviceKey);
+        Long result = redisTemplate.execute(
+                DEVICE_LUA,
+                Collections.singletonList(deviceKey),
+                deviceId,
+                String.valueOf(MAX_DEVICE_COUNT),
+                String.valueOf(30 * 24 * 3600)
+        );
 
-        if (size != null && size >= MAX_DEVICE_COUNT) {
-
-            // ⭐ 企业策略：拒绝新设备（更安全）
-            throw new RuntimeException("登录设备数已达上限");
-
-            // —— 如果你想挤下线，我可以给你版本2
+        if (result == null) {
+            throw new RuntimeException("设备风控异常");
         }
 
-        // ⭐ 记录设备
-        redisTemplate.opsForSet().add(deviceKey, deviceId);
+        if (result == -1) {
+            throw new RuntimeException("登录设备数已达上限");
+        }
 
-        // ⭐ 设置长期过期（可选）
-        redisTemplate.expire(deviceKey, 30, TimeUnit.DAYS);
-
-        log.info("设备登记 userId={} deviceId={}", userId, deviceId);
+        log.info("设备登记成功 userId={} deviceId={}", userId, deviceId);
     }
 }

@@ -4,7 +4,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.List;
@@ -23,25 +22,27 @@ public class JwtUtil {
     /**
      * 生成 access token（企业版）
      */
-    public static String generateAccessToken(Long userId,
-                                             String deviceId,
-                                             List<String> roles) {
+        public static String generateAccessToken(Long userId,
+                                                 String deviceId,
+                                                 List<String> roles,
+                                                 String fingerprint) {
 
-        String jti = UUID.randomUUID().toString();
+            String jti = UUID.randomUUID().toString();
 
-        return Jwts.builder()
-                .setSubject(userId.toString())
-                .claim("userId", userId)
-                .claim("deviceId", deviceId)
-                .claim("roles", roles)
-                .claim("jti", jti)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(
-                        System.currentTimeMillis() + ACCESS_EXPIRE
-                ))
-                .signWith(key)
-                .compact();
-    }
+            return Jwts.builder()
+                    .setSubject(userId.toString())
+                    .claim("userId", userId)
+                    .claim("deviceId", deviceId)
+                    .claim("roles", roles)
+                    .claim("fp", fingerprint)
+                    .claim("jti", jti)
+                    .setIssuedAt(new Date())
+                    .setExpiration(new Date(
+                            System.currentTimeMillis() + ACCESS_EXPIRE
+                    ))
+                    .signWith(key)
+                    .compact();
+        }
 
     /**
      * 解析JWT令牌并提取其中的声明信息。
