@@ -13,6 +13,8 @@ bin-release/
 *.ipa
 *.apk
 
+*/classes/
+
 *.class
 *.log
 
